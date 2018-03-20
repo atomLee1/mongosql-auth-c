@@ -11,9 +11,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
 set (CMAKE_C_FLAGS "-std=c99 ${CMAKE_C_FLAGS}")
 
 set (PLUGIN_SOURCE_FILES
-    ../plugin/auth/mongosql-auth/mongosql-auth-plugin.c
-    ../plugin/auth/mongosql-auth/mongosql-auth.c
-    ../plugin/auth/mongosql-auth/mongosql-auth-conversation.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongosql-auth-plugin.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongosql-auth.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongosql-auth-conversation.c
 )
 
 IF(APPLE)
@@ -24,7 +24,7 @@ IF(APPLE)
   MESSAGE(STATUS "Using GSSAPI")
   set(MONGOSQL_AUTH_ENABLE_SASL_GSSAPI 1)
   set(SASL_LIBS "-framework GSS")
-  set(PLUGIN_SOURCE_FILES ${PLUGIN_SOURCE_FILES} ../plugin/auth/mongosql-auth/mongosql-auth-gssapi.c)
+  set(PLUGIN_SOURCE_FILES ${PLUGIN_SOURCE_FILES} ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongosql-auth-gssapi.c)
 
   set(MONGOSQL_AUTH_ENABLE_SASL 1)
   set(MONGOSQL_AUTH_ENABLE_SASL_GSSAPI 1)
@@ -35,7 +35,7 @@ ELSEIF(WIN32)
   set(SASL_LIBS secur32.lib Shlwapi.lib)
 
   MESSAGE(STATUS "Using SSPI")
-  set(PLUGIN_SOURCE_FILES ${PLUGIN_SOURCE_FILES} ../plugin/auth/mongosql-auth/mongosql-auth-sspi.c)
+  set(PLUGIN_SOURCE_FILES ${PLUGIN_SOURCE_FILES} ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongosql-auth-sspi.c)
   set(MONGOSQL_AUTH_ENABLE_SASL 1)
   set(MONGOSQL_AUTH_ENABLE_SASL_SSPI 1)
 ELSE()
@@ -53,7 +53,7 @@ ELSE()
   if (GSS_FOUND)
     set(SASL_LIBS ${GSS_LIBS})
     include_directories(${GSS_INCLUDE_DIRS})
-    set(PLUGIN_SOURCE_FILES ${PLUGIN_SOURCE_FILES} ../plugin/auth/mongosql-auth/mongosql-auth-gssapi.c)
+    set(PLUGIN_SOURCE_FILES ${PLUGIN_SOURCE_FILES} ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongosql-auth-gssapi.c)
     set(MONGOSQL_AUTH_ENABLE_SASL 1)
     set(MONGOSQL_AUTH_ENABLE_SASL_GSSAPI 1)
     MESSAGE(STATUS "Using GSSAPI")
@@ -78,18 +78,18 @@ configure_file (
 )
 
 set (MONGOC_SOURCE_FILES
-    ../plugin/auth/mongosql-auth/mongoc/bson-md5.c
-    ../plugin/auth/mongosql-auth/mongoc/mongoc-misc.c
-    ../plugin/auth/mongosql-auth/mongoc/mongoc-b64.c
-    ../plugin/auth/mongosql-auth/mongoc/mongoc-crypto-cng.c
-    ../plugin/auth/mongosql-auth/mongoc/mongoc-crypto-common-crypto.c
-    ../plugin/auth/mongosql-auth/mongoc/mongoc-crypto-openssl.c
-    ../plugin/auth/mongosql-auth/mongoc/mongoc-crypto.c
-    ../plugin/auth/mongosql-auth/mongoc/mongoc-memcmp.c
-    ../plugin/auth/mongosql-auth/mongoc/mongoc-rand-cng.c
-    ../plugin/auth/mongosql-auth/mongoc/mongoc-rand-common-crypto.c
-    ../plugin/auth/mongosql-auth/mongoc/mongoc-rand-openssl.c
-    ../plugin/auth/mongosql-auth/mongoc/mongoc-scram.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/bson-md5.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-misc.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-b64.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-crypto-cng.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-crypto-common-crypto.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-crypto-openssl.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-crypto.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-memcmp.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-rand-cng.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-rand-common-crypto.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-rand-openssl.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-scram.c
 )
 
 add_library(mongoc ${MONGOC_SOURCE_FILES})
