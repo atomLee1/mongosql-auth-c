@@ -15,6 +15,18 @@ set (PLUGIN_SOURCE_FILES
     ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongosql-auth-plugin.c
     ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongosql-auth.c
     ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongosql-auth-conversation.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/bson-md5.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-misc.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-b64.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-crypto-cng.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-crypto-common-crypto.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-crypto-openssl.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-crypto.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-memcmp.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-rand-cng.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-rand-common-crypto.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-rand-openssl.c
+    ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-scram.c
 )
 
 IF(APPLE)
@@ -66,8 +78,6 @@ ELSE()
 ENDIF()
 
 
-MYSQL_ADD_PLUGIN(mongosql_auth ${PLUGIN_SOURCE_FILES} LINK_LIBRARIES ${SASL_LIBS} MODULE_ONLY TEST_ONLY)
-
 configure_file (
   "${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-config.h.in"
   "${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-config.h"
@@ -93,11 +103,12 @@ set (MONGOC_SOURCE_FILES
     ${PROJECT_SOURCE_DIR}/plugin/auth/mongosql-auth/mongoc/mongoc-scram.c
 )
 
-add_library(mongoc ${MONGOC_SOURCE_FILES})
+add_library(mongoc STATIC ${MONGOC_SOURCE_FILES})
 target_link_libraries(mongoc ${SSL_LIBS})
 
 IF(UNIX)
   target_compile_options(mongoc PUBLIC "$<1:-fPIC>")
 ENDIF()
 
-target_link_libraries(mongosql_auth mongoc)
+MYSQL_ADD_PLUGIN(mongosql_auth ${PLUGIN_SOURCE_FILES} LINK_LIBRARIES ${SASL_LIBS} mongoc MODULE_ONLY TEST_ONLY)
+
