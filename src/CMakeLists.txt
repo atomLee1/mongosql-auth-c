@@ -1,6 +1,3 @@
-include(FindMongocCrypto)
-include(FindMongocKerberos)
-
 # Defaults.
 set (MONGOC_ENABLE_CRYPTO_COMMON_CRYPTO 0)
 set (MONGOC_ENABLE_CRYPTO_LIBCRYPTO 0)
@@ -10,6 +7,9 @@ set (MONGOSQL_AUTH_ENABLE_SASL 0)
 set (MONGOSQL_AUTH_ENABLE_SASL_GSSAPI 0)
 set (MONGOSQL_AUTH_ENABLE_SASL_SSPI 0)
 set (MONGOSQL_AUTH_DEBUG 0)
+
+include(FindMongocCrypto)
+include(FindMongocKerberos)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
 set (CMAKE_C_FLAGS "-std=c99 ${CMAKE_C_FLAGS}")
