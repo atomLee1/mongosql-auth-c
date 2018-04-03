@@ -33,7 +33,7 @@
             $SQLPROXY_MONGO_ARGS \
             --logPath $ARTIFACTS_DIR/log/sqlproxy.log \
             --schema $PROJECT_DIR/test/resources/sqlproxy \
-            --auth -vvvv
+            --auth -vvvv --mongo-username driver@LDAPTEST.10GEN.CC --mongo-password powerbook17
         net start mongosql
     else
         cd *
@@ -42,7 +42,7 @@
             $SQLPROXY_MONGO_ARGS \
             --logPath $ARTIFACTS_DIR/log/sqlproxy.log \
             --schema $PROJECT_DIR/test/resources/sqlproxy \
-            --auth &
+            --auth --mongo-username driver@LDAPTEST.10GEN.CC --mongo-password powerbook17 &
     fi
     sleep 5
     echo "done starting sqlproxy"
