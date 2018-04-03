@@ -503,7 +503,7 @@ axes:
     display_name: Windows 64 (VS2015)
     run_on: windows-64-vs2015-compile
     variables:
-      variant: windows-vs2013
+      variant: windows-64
   - id: windows-32
     display_name: Windows 32 (VS2015)
     run_on: windows-64-vs2015-compile
