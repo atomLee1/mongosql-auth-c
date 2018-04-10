@@ -33,12 +33,8 @@
 
     echo "starting sqlproxy..."
     if [ "Windows_NT" = "$OS" ]; then
-	if [ "$VARIANT" = "windows-64" ]; then
-            cd "/cygdrive/c/Program Files/MongoDB/Connector for BI/2.4/bin"
-	else
-	    cd "/cygdrive/c/Program Files (x86)/MongoDB/Connector for BI/2.4/bin"
-	fi
-	./mongosqld.exe install \
+        cd "/cygdrive/c/Program Files/MongoDB/Connector for BI/2.4/bin"
+	    ./mongosqld.exe install \
             $SQLPROXY_MONGO_ARGS \
             --logPath $ARTIFACTS_DIR/log/sqlproxy.log \
             --schema $PROJECT_DIR/test/resources/sqlproxy \
@@ -47,19 +43,12 @@
     else
         cd *
         cd bin
-        ./mongosqld -vvvv \
+        nohup ./mongosqld -vvvv \
             $SQLPROXY_MONGO_ARGS \
             --logPath $ARTIFACTS_DIR/log/sqlproxy.log \
             --schema $PROJECT_DIR/test/resources/sqlproxy \
             --auth --mongo-username $MONGO_USERNAME --mongo-password $MONGO_PASSWORD &
-        #nohup ./mongosqld -vvvv \
-        #    $SQLPROXY_MONGO_ARGS \
-        #    --logPath $ARTIFACTS_DIR/log/sqlproxy.log \
-        #    --schema $PROJECT_DIR/test/resources/sqlproxy \
-        #    --auth --mongo-username $MONGO_USERNAME --mongo-password $MONGO_PASSWORD &
     fi
-    echo 'sleeping'
-    sleep 5
     echo "done starting sqlproxy"
 ) 
 
