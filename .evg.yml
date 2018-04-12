@@ -272,7 +272,6 @@ functions:
   "start mongosqld":
     - command: shell.exec
       params:
-        background: true
         script: |
           ${PREPARE_SHELL}
           export EVG_USER=${evg_user}

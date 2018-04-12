@@ -50,6 +50,8 @@
             --auth --mongo-username $MONGO_USERNAME --mongo-password $MONGO_PASSWORD &
     fi
     echo "done starting sqlproxy"
-) 
+	sleep 5
+# pipe stdin and stdout to a file so that we do not need to run this as a background task.
+) > $LOG_FILE 2>&1
 
 print_exit_msg
