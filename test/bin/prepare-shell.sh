@@ -23,7 +23,6 @@ fi
 
 ARTIFACTS_DIR="$PROJECT_DIR/test/artifacts"
 LOG_FILE="$ARTIFACTS_DIR/log/${basename%.sh}.log"
-#for local tests make sure log dir exists
 mkdir -p "$ARTIFACTS_DIR/log"
 BOOST_DIR="boost_1_59_0"
 BOOST_FILE="$BOOST_DIR.tar.gz"

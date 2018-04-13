@@ -5,10 +5,6 @@
 (
     set -o errexit
 
-    #env | grep MONGO
-
-    #mkdir -p "$ARTIFACTS_DIR/sqlproxy"
-
     echo "downloading sqlproxy..."
     python $PROJECT_DIR/test/bin/download-sqlproxy.py
     echo "done downloading sqlproxy"
@@ -51,7 +47,8 @@
     fi
     echo "done starting sqlproxy"
 	sleep 5
-# pipe stdin and stdout to a file so that we do not need to run this as a background task.
+# redirect stdin and stdout to a file instead of piping to tee so that we do
+# not need to run this as a background task.
 ) > $LOG_FILE 2>&1
 
 print_exit_msg

@@ -285,7 +285,7 @@ functions:
               export MONGO_USERNAME=${scram_auth_username}
               export MONGO_PASSWORD=${scram_auth_password}
           else
-              echo "unsupported auth ${var_auth_mechanism}"
+              echo "unsupported authentication mechanism ${var_auth_mechanism}"
               exit 1
           fi
           export SQLPROXY_MONGO_ARGS=${var_mongodb_args}
